@@ -1,5 +1,7 @@
 import React from "react";
 import * as S from "../style";
+import { useRecoilState } from "recoil";
+import { roomState } from "../../../recoil/roomState";
 
 export default function PRoomResult({ roomData }) {
   const timetables = [
@@ -48,12 +50,33 @@ export default function PRoomResult({ roomData }) {
       block_count: 2,
     },
   ];
+  const [mode, setMode] = useRecoilState(roomState);
+  const onMouseoverFunc = (availMember, unavailMember) => {
+    setMode(1);
+    console.log(mode, availMember, unavailMember);
+  };
+  const onMouseleaveFunc = () => {
+    setMode(0);
+    console.log(mode);
+  };
   return (
     <>
       {timetables.map((item) => (
         <S.TimeTable>
           {item["timeblocks"].map((block) => (
             <S.TimeBlock
+              key={block.order}
+              onMouseEnter={async (e) => {
+                e.preventDefault();
+                await onMouseoverFunc(
+                  block.avail_members,
+                  block.unavail_members
+                );
+              }}
+              onMouseLeave={async (e) => {
+                e.preventDefault();
+                await onMouseleaveFunc();
+              }}
               colorIndex={block.avail_count}
               timeIndex={block.order}
               dateIndex={item.date}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import Main from "./pages/Main";
 import Room from "./pages/Room";
@@ -7,6 +8,8 @@ import Room from "./pages/Room";
 function App() {
     return ( <
         >
+        <
+        RecoilRoot >
         <
         GlobalStyle / >
         <
@@ -19,7 +22,8 @@ function App() {
         element = { < Room / > }
         />{" "} < /
         Routes > { " " } <
-        />
+        /RecoilRoot> <
+        /> 
     );
 }
 
