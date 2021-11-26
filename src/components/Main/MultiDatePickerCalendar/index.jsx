@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
+import "./MultiDatePickerCalendar.css"
 import styled from "styled-components";
 import { DayPickerSingleDateController } from "react-dates";
 

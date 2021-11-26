@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import PMainForm from "./PMainForm";
 import * as S from "../style";
 import { Link } from "react-router-dom";
+import { AiOutlineCopy } from 'react-icons/ai';
+
 
 export default function MainForm() {
   const [modalSwitch, setModalSwitch] = useState(false);
@@ -32,12 +34,12 @@ function ConfirmModal({ groupId }) {
     <S.ModalBackground>
       <S.ModalBox>
         <S.ModalContent>
-          <p>축하합니다! 방이 개설되었습니다!</p>
-          <p>친구들을 초대해 함꼐 일정을 세워보세요.</p>
+          <h1>축하합니다! 방이 개설되었습니다!</h1>
+          <h1>친구들을 초대해 함께 일정을 세워보세요.</h1>
           <S.LinkBox>
-            <p>링크: </p>
+            <p>링크 :</p>
             <p>{`https://jungshi/${groupId}`}</p>
-            <p>Copy</p>
+            <p><AiOutlineCopy size="14"/></p>
           </S.LinkBox>
           <S.BtnBox>
             <S.ShareBtn>
@@ -48,13 +50,13 @@ function ConfirmModal({ groupId }) {
                 <p>확인</p>
               </S.ConfirmBtn>
             </Link>
+            <S.ModalHeader>
+              <S.CloseModalBtn onClick={() => (window.location.href = "/")}>
+                <p>처음부터 다시 만들기</p>
+              </S.CloseModalBtn>
+            </S.ModalHeader>
           </S.BtnBox>
         </S.ModalContent>
-        <S.ModalHeader>
-          <S.CloseModalBtn onClick={() => (window.location.href = "/")}>
-            <p>처음부터 다시 만들기</p>
-          </S.CloseModalBtn>
-        </S.ModalHeader>
       </S.ModalBox>
     </S.ModalBackground>,
     document.getElementById("modal")

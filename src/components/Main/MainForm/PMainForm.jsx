@@ -48,124 +48,203 @@ export default function PMainForm({ newRoom }) {
   const { name, startTime, endTime, date } = inputs;
   return (
     <>
-      <S.MainSection1>
-        <p>
-          {index === 1
-            ? "정시"
-            : index === 2
-            ? "달력에서 날짜"
-            : index === 3
-            ? "시간대를 설정"
-            : "시간대를 설정"}
-        </p>
-      </S.MainSection1>
-      <S.MainSection2>
-        {index === 1 ? (
-          <>
-            <S.MainNameForm>
-              <p>그룹 이름</p>
-              <S.MainNameInput
-                value={name}
-                name="name"
-                type="text"
-                placeholder="이름"
-                onChange={onChange}
+      <>
+        {index === 1
+          ? <S.guaguebar1>
+            <div className="done"></div>
+            <div className="undo"></div>
+          </S.guaguebar1>
+          : index === 2
+          ? <S.guaguebar2>
+            <div className="done"></div>
+            <div className="undo"></div>
+          </S.guaguebar2>
+          : index === 3
+          ? <S.guaguebar3>
+            <div className="done"></div>
+            <div className="undo"></div>
+          </S.guaguebar3>
+          : <S.guaguebar3>
+            <div className="done"></div>
+            <div className="undo"></div>
+          </S.guaguebar3>}
+      </>
+      <S.Section>
+        <S.MainSection1>
+          <p>
+            {index === 1
+              ?
+              <div className="section1">
+                <div>
+                  <p>정시<span>正時</span></p>
+                </div>        
+                <h1>
+                  팀플을 '바르게' 시작하다, '시간'을 정하다.
+                </h1>
+              </div>
+              : index === 2
+              ?
+              <div className="section2">
+                <p>
+                  달력에서 날짜를 선택해주세요.
+                </p>
+              </div>
+              : index === 3
+              ? 
+              <div className="section3">
+                <p>
+                  시간대를 선택해주세요.
+                </p>
+              </div>
+              : <div className="section3">
+              <p>
+                시간대를 선택해주세요.
+              </p>
+            </div>}
+          </p>
+        </S.MainSection1>
+        <S.MainSection2>
+          {index === 1 ? (
+            <div className="section1">
+              <S.MainNameForm>
+                <p>그룹 이름</p>
+                <S.MainNameInput
+                  value={name}
+                  name="name"
+                  type="text"
+                  placeholder="그룹 이름을 입력해주세요."
+                  onChange={onChange}
+                />
+              </S.MainNameForm>
+            </div>
+          ) : index === 2 ? (
+            <div className="section2">
+              <MultiDatePickerCalendar
+                datesHandler={datesHandler}
+                old_date={date}
               />
-            </S.MainNameForm>
-          </>
-        ) : index === 2 ? (
-          <MultiDatePickerCalendar
-            datesHandler={datesHandler}
-            old_date={date}
-          />
-        ) : index === 3 ? (
-          <>
-            <S.MainLabel htmlFor="startTime">
-              <S.StartTimeSelect
-                id="startTime"
-                onChange={onChange}
-                value={startTime}
-                name="startTime"
-              >
-                {range(0, 25).map((num) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <option value={num} key={num}>
-                    {num}
-                  </option>
-                ))}
-              </S.StartTimeSelect>
-            </S.MainLabel>
-            <S.MainLabel htmlFor="endTime">
-              <S.EndTimeSelect
-                id="endTime"
-                name="endTime"
-                onChange={onChange}
-                value={endTime}
-              >
-                {range(startTime, 25).map((num) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <option value={num} key={num}>
-                    {num}
-                  </option>
-                ))}
-              </S.EndTimeSelect>
-            </S.MainLabel>
-          </>
-        ) : (
-          <>
-            <S.MainLabel htmlFor="startTime">
-              <S.StartTimeSelect
-                id="startTime"
-                onChange={onChange}
-                value={startTime}
-                name="startTime"
-              >
-                {range(0, 25).map((num) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <option value={num} key={num}>
-                    {num}
-                  </option>
-                ))}
-              </S.StartTimeSelect>
-            </S.MainLabel>
-            <S.MainLabel htmlFor="endTime">
-              <S.EndTimeSelect
-                id="endTime"
-                name="endTime"
-                onChange={onChange}
-                value={endTime}
-              >
-                {range(startTime, 25).map((num) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <option value={num} key={num}>
-                    {num}
-                  </option>
-                ))}
-              </S.EndTimeSelect>
-            </S.MainLabel>
-          </>
-        )}
-        <S.MainFooter>
-          <S.MainFooterBtn1 onClick={async () => await beforeClick(index)}>
-            {index === 1
-              ? ""
-              : index === 2
-              ? "뒤로"
-              : index === 3
-              ? "뒤로"
-              : null}
-          </S.MainFooterBtn1>
-          <S.MainFooterBtn2 onClick={async () => await afterClick(index)}>
-            {index === 1
-              ? "시작하기"
-              : index === 2
-              ? "다음"
-              : index === 3
-              ? "확인"
-              : null}
-          </S.MainFooterBtn2>
-        </S.MainFooter>
-      </S.MainSection2>
+            </div>
+          ) : index === 3 ? (
+            <div className="section3">
+              <p>시작 시간</p>
+              <div className="picker">
+                <S.MainLabel htmlFor="startTime">
+                  <S.StartTimeSelect
+                    id="startTime"
+                    onChange={onChange}
+                    value={startTime}
+                    name="startTime"
+                  >
+                    {range(0, 25).map((num) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <option value={num} key={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </S.StartTimeSelect>
+                </S.MainLabel>
+                <S.MainLabel htmlFor="endTime">
+                  <S.EndTimeSelect
+                    id="endTime"
+                    name="endTime"
+                    onChange={onChange}
+                    value={endTime}
+                  >
+                    {range(startTime, 25).map((num) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <option value={num} key={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </S.EndTimeSelect>
+                </S.MainLabel>
+              </div>
+              <span>마감 시간</span>
+            </div>
+          ) : (
+            <div className="section3">
+              <p>시작 시간</p>
+              <div className="picker">
+                <S.MainLabel htmlFor="startTime">
+                  <S.StartTimeSelect
+                    id="startTime"
+                    onChange={onChange}
+                    value={startTime}
+                    name="startTime"
+                  >
+                    {range(0, 25).map((num) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <option value={num} key={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </S.StartTimeSelect>
+                </S.MainLabel>
+                <S.MainLabel htmlFor="endTime">
+                  <S.EndTimeSelect
+                    id="endTime"
+                    name="endTime"
+                    onChange={onChange}
+                    value={endTime}
+                  >
+                    {range(startTime, 25).map((num) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <option value={num} key={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </S.EndTimeSelect>
+                </S.MainLabel>
+              </div>
+              <span>마감 시간</span>
+          </div>
+          )}
+          <S.MainFooter>
+            <S.MainFooterBtn1 onClick={async () => await beforeClick(index)}>
+              {index === 1
+                ? ""
+                : index === 2
+                ?
+                <div className="footerName2">
+                  <p>뒤로</p>
+                </div>
+                : index === 3
+                ?
+                <div className="footerName2">
+                  <p>뒤로</p>
+                </div>
+                :
+                <div className="footerName2">
+                  <p>뒤로</p>
+                </div>}
+            </S.MainFooterBtn1>
+            <S.MainFooterBtn2 onClick={async () => await afterClick(index)}>
+              {index === 1
+                ?
+                <div className="footerName1">
+                  <p>시작하기</p>
+                </div>
+                : index === 2
+                ? 
+                <div className="footerName2">
+                  <p>다음</p>
+                </div>
+                : index === 3
+                ? 
+                <div className="footerName2">
+                  <p>확인</p>
+                </div>
+                : 
+                <div className="footerName2">
+                  <p>확인</p>
+                </div>}
+            </S.MainFooterBtn2>
+          </S.MainFooter>
+        </S.MainSection2>
+      </S.Section>
+      <S.footer>
+          <span>만든이 : 박가영, 박한영, 김태훈  |  이 컨텐츠는 when2meet을 참고하여 만들어졌습니다.</span>
+      </S.footer>
     </>
   );
 }
