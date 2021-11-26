@@ -2,25 +2,42 @@ import React, { useState } from "react";
 import { MultiDatePickerCalendar, MainTime } from "..";
 import * as S from "../style";
 
-export default function PMainForm() {
+export default function PMainForm({ newRoom }) {
   const [index, setIndex] = useState(1);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState([]);
+  const [inputs, setInputs] = useState({
+    name: "",
+    startTime: "",
+    endTime: "",
+    date: [],
+  });
   const onChange = (e) => {
-    const { value } = e.target;
-    setName(value);
-    console.log(name);
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+    console.log(inputs);
   };
   const afterClick = async (index) => {
     setIndex(index + 1);
-    console.log(name, date);
+    if (index === 3) {
+      console.log(inputs);
+      await newRoom(inputs);
+    }
   };
   const beforeClick = async (index) => {
     setIndex(index - 1);
   };
   const datesHandler = async (dates) => {
-    setDate(dates);
+    const newDate = [];
+    dates.map((date) => newDate.push(date.format("YYYY-MM-DD")));
+    setInputs({
+      ...inputs,
+      date: newDate,
+    });
+    console.log(inputs);
   };
+  const { name, startTime, endTime, date } = inputs;
   return (
     <>
       <S.MainSection1>
@@ -54,7 +71,20 @@ export default function PMainForm() {
             old_date={date}
           />
         ) : index === 3 ? (
-          <MainTime />
+          <>
+            <S.MainInput
+              value={startTime || ""}
+              name="startTime"
+              type="time"
+              onChange={onChange}
+            />
+            <S.MainInput
+              value={endTime || ""}
+              name="endTime"
+              type="time"
+              onChange={onChange}
+            />
+          </>
         ) : null}
         <S.MainFooter>
           <S.MainFooterBtn1 onClick={async () => await beforeClick(index)}>

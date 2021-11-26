@@ -34,7 +34,7 @@ const MultiDatePickerCalendar = ({ datesHandler, old_date }) => {
     }
   };
 
-  useEffect(() => datesHandler(dates), [dates, datesHandler]);
+  useEffect(() => datesHandler(dates), [dates]);
 
   return (
     <StyledWrapper>

@@ -4,6 +4,11 @@ import { RecoilRoot } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import Main from "./pages/Main";
 import Room from "./pages/Room";
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+
+axios.defaults.withCredentials = true;
 
 function App() {
     return ( <
@@ -22,8 +27,8 @@ function App() {
         element = { < Room / > }
         />{" "} < /
         Routes > { " " } <
-        /RecoilRoot> <
-        /> 
+        /RecoilRoot> < /
+        >
     );
 }
 
