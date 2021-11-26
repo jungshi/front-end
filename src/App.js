@@ -27,8 +27,7 @@ function App() {
         element = { < Room / > }
         />{" "} < /
         Routes > { " " } <
-        /RecoilRoot> < /
-        >
+        /RecoilRoot> < / >
     );
 }
 

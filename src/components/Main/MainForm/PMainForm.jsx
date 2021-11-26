@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MultiDatePickerCalendar, MainTime } from "..";
+import { MultiDatePickerCalendar } from "..";
 import * as S from "../style";
 
 export default function PMainForm({ newRoom }) {
@@ -10,6 +10,14 @@ export default function PMainForm({ newRoom }) {
     endTime: "",
     date: [],
   });
+
+  function range(start, end) {
+    let array = [];
+    for (let i = start; i < end; ++i) {
+      array.push(i);
+    }
+    return array;
+  }
   const onChange = (e) => {
     const { value, name } = e.target;
     setInputs({
@@ -48,7 +56,7 @@ export default function PMainForm({ newRoom }) {
             ? "달력에서 날짜"
             : index === 3
             ? "시간대를 설정"
-            : null}
+            : "시간대를 설정"}
         </p>
       </S.MainSection1>
       <S.MainSection2>
@@ -72,20 +80,71 @@ export default function PMainForm({ newRoom }) {
           />
         ) : index === 3 ? (
           <>
-            <S.MainInput
-              value={startTime || ""}
-              name="startTime"
-              type="time"
-              onChange={onChange}
-            />
-            <S.MainInput
-              value={endTime || ""}
-              name="endTime"
-              type="time"
-              onChange={onChange}
-            />
+            <S.MainLabel htmlFor="startTime">
+              <S.StartTimeSelect
+                id="startTime"
+                onChange={onChange}
+                value={startTime}
+                name="startTime"
+              >
+                {range(0, 25).map((num) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </S.StartTimeSelect>
+            </S.MainLabel>
+            <S.MainLabel htmlFor="endTime">
+              <S.EndTimeSelect
+                id="endTime"
+                name="endTime"
+                onChange={onChange}
+                value={endTime}
+              >
+                {range(startTime, 25).map((num) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </S.EndTimeSelect>
+            </S.MainLabel>
           </>
-        ) : null}
+        ) : (
+          <>
+            <S.MainLabel htmlFor="startTime">
+              <S.StartTimeSelect
+                id="startTime"
+                onChange={onChange}
+                value={startTime}
+                name="startTime"
+              >
+                {range(0, 25).map((num) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </S.StartTimeSelect>
+            </S.MainLabel>
+            <S.MainLabel htmlFor="endTime">
+              <S.EndTimeSelect
+                id="endTime"
+                name="endTime"
+                onChange={onChange}
+                value={endTime}
+              >
+                {range(startTime, 25).map((num) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </S.EndTimeSelect>
+            </S.MainLabel>
+          </>
+        )}
         <S.MainFooter>
           <S.MainFooterBtn1 onClick={async () => await beforeClick(index)}>
             {index === 1

@@ -11,4 +11,5 @@ export const HoverAvail = styled.div``;
 export const HovernotAvail = styled.div``;
 export const HoverMem = styled.div``;
 export const OneBox = styled.div``;
+
 export const OneInput = styled.input``;
