@@ -15,10 +15,6 @@ export default function MainForm() {
         console.log(data.group_id, data, res, modalSwitch);
         setGroupId(data.group_id);
       })
-      .then((groupId) => {
-        console.log(groupId);
-        setModalSwitch(true);
-      })
       .catch((err) => err);
   };
   return (
