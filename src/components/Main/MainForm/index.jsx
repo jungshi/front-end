@@ -4,8 +4,7 @@ import { createPortal } from "react-dom";
 import PMainForm from "./PMainForm";
 import * as S from "../style";
 import { Link } from "react-router-dom";
-import { AiOutlineCopy } from 'react-icons/ai';
-
+import { AiOutlineCopy } from "react-icons/ai";
 
 export default function MainForm() {
   const [modalSwitch, setModalSwitch] = useState(false);
@@ -16,9 +15,6 @@ export default function MainForm() {
         const data = res.data;
         console.log(data.group_id, data, res, modalSwitch);
         setGroupId(data.group_id);
-      })
-      .then((groupId) => {
-        console.log(groupId);
         setModalSwitch(true);
       })
       .catch((err) => err);
@@ -43,7 +39,9 @@ function ConfirmModal({ groupId }) {
           <S.LinkBox>
             <p>링크 :</p>
             <p>{`https://jungshi/${groupId}`}</p>
-            <p><AiOutlineCopy size="14"/></p>
+            <p>
+              <AiOutlineCopy size="14" />
+            </p>
           </S.LinkBox>
           <S.BtnBox>
             <S.ShareBtn>
