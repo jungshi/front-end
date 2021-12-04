@@ -1,2 +1,2 @@
 export { mainNewApi } from "./mainApi";
-export { getRoomApi } from "./roomApi";
+export { getRoomApi, makeTimeApi } from "./roomApi";
