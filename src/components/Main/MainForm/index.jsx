@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mainNewApi } from "../../../utils/mainApi";
 import { createPortal } from "react-dom";
 import PMainForm from "./PMainForm";
 import * as S from "../style";
 import { Link } from "react-router-dom";
 import { AiOutlineCopy } from "react-icons/ai";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function MainForm() {
   const [modalSwitch, setModalSwitch] = useState(false);
@@ -19,17 +20,28 @@ export default function MainForm() {
       })
       .catch((err) => err);
   };
+
   return (
     <>
       <PMainForm newRoom={newRoom} />
       {modalSwitch ? (
-        <ConfirmModal setModalSwitch={setModalSwitch} groupId={groupId} />
+        <ConfirmModal setModalSwitch={setModalSwitch} groupId={groupId}/>
       ) : null}
     </>
   );
 }
 
-function ConfirmModal({ groupId }) {
+function ConfirmModal({ groupId}) {
+  const [showPopup, setShowPopup] = useState(false);
+  const togglePopup = () => {
+    console.log("정상적으로 복사하기가 됐습니다.")
+    setShowPopup(!showPopup)
+  };
+  useEffect(() => {
+    if (showPopup) {
+      setTimeout(() => setShowPopup(false), 1000);
+    }
+  }, [showPopup]);
   return createPortal(
     <S.ModalBackground>
       <S.ModalBox>
@@ -39,9 +51,9 @@ function ConfirmModal({ groupId }) {
           <S.LinkBox>
             <p>링크 :</p>
             <p>{`https://jungshi/${groupId}`}</p>
-            <p>
-              <AiOutlineCopy size="14" />
-            </p>
+            <CopyToClipboard text={`https://jungshi/${groupId}`}>
+              <S.URLShareButton onClick={togglePopup}><AiOutlineCopy size="14"/></S.URLShareButton>
+            </CopyToClipboard>
           </S.LinkBox>
           <S.BtnBox>
             <S.ShareBtn>
@@ -52,15 +64,21 @@ function ConfirmModal({ groupId }) {
                 <p>확인</p>
               </S.ConfirmBtn>
             </Link>
-            <S.ModalHeader>
+          </S.BtnBox>
+          <S.ModalHeader>
               <S.CloseModalBtn onClick={() => (window.location.href = "/")}>
                 <p>처음부터 다시 만들기</p>
               </S.CloseModalBtn>
             </S.ModalHeader>
-          </S.BtnBox>
         </S.ModalContent>
       </S.ModalBox>
+        {showPopup ? (
+          <S.ShowPopupBox>
+            <p>링크가 복사되었습니다.</p>
+          </S.ShowPopupBox>    
+        ) : null}
     </S.ModalBackground>,
+    
     document.getElementById("modal")
   );
 }
